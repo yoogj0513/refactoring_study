@@ -32,9 +32,7 @@ public class Customer {
 			frequentRenterPoints++;
 			
 			// 최신물을 이틀 이상 대여하면 보너스 포인트 지급
-			if((each.getMovie().getPriceCode() == Movie.NEW_RELEASE) && each.getDaysRented() > 1) {
-				frequentRenterPoints++;
-			}
+			frequentRenterPoints += each.getFrequentRenterPoints();
 			
 			//이번에 대여한 비디오 정보와 대여료를 출력
 			result.append("\t" + each.getMovie().getTitle());
@@ -42,13 +40,13 @@ public class Customer {
 			
 			//현재까지 누적된 총 대여료
 			totalAmount += each.getCharge();
-		}
+		}// end of for-loop
 		
 		//푸터행 추가
 		result.append("누적 대여료 : " + String.valueOf(totalAmount) + "\n");
 		result.append("적립 포인트 : " + String.valueOf(frequentRenterPoints));
 		
 		return result.toString();
-	}
+	}// end of method statement
 
 }
