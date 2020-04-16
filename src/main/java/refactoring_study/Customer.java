@@ -21,7 +21,6 @@ public class Customer {
 	}
 	
 	public String statement() {
-		double totalAmount = 0;
 		int frequentRenterPoints = 0;
 		
 		StringBuilder result = new StringBuilder(getName() + " 고객님의 대여 기록\n");
@@ -35,15 +34,21 @@ public class Customer {
 			result.append("\t" + each.getMovie().getTitle());
 			result.append("\t" + String.valueOf(each.getCharge()) + "\n");
 			
-			//현재까지 누적된 총 대여료
-			totalAmount += each.getCharge();
 		}// end of for-loop
 		
 		//푸터행 추가
-		result.append("누적 대여료 : " + String.valueOf(totalAmount) + "\n");
+		result.append("누적 대여료 : " + String.valueOf(getTotalChange()) + "\n");
 		result.append("적립 포인트 : " + String.valueOf(frequentRenterPoints));
 		
 		return result.toString();
 	}// end of method statement
+
+	private double getTotalChange() {
+		double result = 0;
+		for(Rental rental : rentals) {
+			result += rental.getCharge();
+		}
+		return result;
+	}
 
 }
