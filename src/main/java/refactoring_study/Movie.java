@@ -7,18 +7,24 @@ public class Movie {
 
 	private String title;
 	private int priceCode;
-
+	private Price price;
+	
 	public Movie(String title, int priceCode) {
 		this.title = title;
-		this.priceCode = priceCode;
+		setPriceCode(priceCode);
 	}
-
+	
 	public int getPriceCode() {
-		return priceCode;
+		return price.getPriceCode();
 	}
-
-	public void setPriceCode(int priceCode) {
-		this.priceCode = priceCode;
+	
+	public void setPriceCode(int aPriceCode) {
+		switch(aPriceCode) {
+		case REGULAR: price = new RegularPrice(); break;
+		case CHILDRENS: price = new ChildrenPrice(); break;
+		case NEW_RELEASE: price = new NewReleasePrice(); break;
+		default : throw new IllegalArgumentException("가격 코드가 잘못 됐습니다.");
+		}
 	}
 
 	public String getTitle() {
